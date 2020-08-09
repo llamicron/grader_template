@@ -1,0 +1,68 @@
+# This workflow will automatically build your grader on Windows, MacOS and Ubuntu.
+# First, replace "my_grader" with whatever you're calling your grader in this file.
+# Then just push to github on the "build" branch.
+# The build may take several minutes. You can see the artifacts on the Github Actions tab.
+name: Build
+
+on:
+  push:
+    branches: [ build ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Nightly
+      run: rustup default nightly
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
+
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    # Only run if tests have passed
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Nightly
+        run: rustup default nightly
+      - name: Build
+        run: cargo build --release
+      - uses: actions/upload-artifact@v1
+        with:
+          name: my_grader_ubuntu
+          path: ./target/release/my_grader
+
+  build-windows:
+    runs-on: windows-latest
+    # Only run if tests have passed
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Nightly
+        run: rustup default nightly
+      - name: Build
+        run: cargo build --release
+      - uses: actions/upload-artifact@v1
+        with:
+          name: my_grader_windows.exe
+          path: ./target/release/my_grader.exe
+
+  build-macos:
+    runs-on: macos-latest
+    # Only run if tests have passed
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Nightly
+        run: rustup default nightly
+      - name: Build
+        run: cargo build --release
+      - uses: actions/upload-artifact@v1
+        with:
+          name: my_grader_macos
+          path: ./target/release/my_grader

@@ -1,0 +1,28 @@
+# Assignment name and description
+name: Grader Name
+desc: Here's what my assignment is all about
+# The assignment's worth
+total: 100
+
+# When this assignment is due
+deadline: 2020-08-09 23:59:59
+# Allow late submissions with a 25 pt penalty per day...
+allow_late: true
+late_penalty_per_day: 25
+# ...until the final cutoff
+final_deadline: 2020-08-12 23:59:59
+
+criteria:
+  "My First Criteria":
+    desc: This is the first criteria, which is half the assignment
+    # The associated function name
+    func: criteria1
+    # Worth 50 pts
+    worth: 50
+    # Keep it visible to the student
+    hide: false
+
+  "My Second criteria":
+    desc: Here's another criteria, it's the other half of the assignment
+    func: criteria2
+    worth: 50

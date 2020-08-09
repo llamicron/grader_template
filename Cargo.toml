@@ -1,0 +1,8 @@
+[package]
+name = "grader_template"
+version = "0.1.0"
+authors = ["Your name <your email>"]
+edition = "2018"
+
+[dependencies]
+rubric = "0.15.0"
